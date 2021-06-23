@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root">
+        <input type="text" value="">
+    </div>
+    <script>
+        //思路
+        // 1. 定义视图
+        // 2.定义模型
+        // 3.监控v  同步到m
+            //绑定事件
+            // /事件处理函数中
+            // 获取标签的值 赋值给模型
+        // 4.监控m  同步到v
+            // Object.defineProperty( , , {get(){},set(){调用函数}})
+            // 函数内 : 模型 赋值给  dom 获取的值
+  
+        // 2.定义模型
+        let  data = {
+            msg  : "",
+        }
+        // 3.监控v  同步到m
+        //绑定事件
+        document.querySelector('input').oninput = function(){
+        // /事件处理函数中
+        // 获取标签的值 赋值给模型
+        // data.msg = document.querySelector('input').value 
+        data.msg = this.value
+        }
+        let tmp = data.msg
+        // 4.监控m  同步到v
+          // Object.defineProperty( , , {get(){},set(){调用函数}})
+          Object.defineProperty(data, 'msg', {
+              get(tmp){
+                return tmp
+              },
+              set(newData){
+                tmp = newData
+                updateView(tmp)
+            }
+            })
+
+            // 函数内 : 模型 赋值给  dom 获取的值
+            function updateView(tmp){
+                document.querySelector('input').value=tmp
+            }
+            data.msg = "hhhhhhh"
+  
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
